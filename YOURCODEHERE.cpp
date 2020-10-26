@@ -83,17 +83,17 @@ std::string generateCacheLatencyParams(string halfBackedConfig) {
     int l2LatencyValue = log2(l2LatencyValue); 
     int l2AssociativeValue = extractConfigPararm(halfBackedConfig, 9);
 
-    if (l2AssociativeValue == 1) {
-        l2LatencyValue = l2LatencyValue + 1;
-    } else if (l2AssociativeValue == 2) {
-        l2LatencyValue = l2LatencyValue + 2;
-    } else if (l2AssociativeValue == 3) {
-        l2LatencyValue = l2LatencyValue + 3;
-    } else if (l2AssociativeValue == 4) {
-        l2LatencyValue = l2LatencyValue + 4;
-    }
+    // if (l2AssociativeValue == 1) {
+    //     l2LatencyValue = l2LatencyValue + 1;
+    // } else if (l2AssociativeValue == 2) {
+    //     l2LatencyValue = l2LatencyValue + 2;
+    // } else if (l2AssociativeValue == 3) {
+    //     l2LatencyValue = l2LatencyValue + 3;
+    // } else if (l2AssociativeValue == 4) {
+    //     l2LatencyValue = l2LatencyValue + 4;
+    // }
 
-    latencySettings << "1";//(l2LatencyValue - 5);
+    latencySettings << (l2LatencyValue - 5);
 
     return latencySettings.str();
 }
