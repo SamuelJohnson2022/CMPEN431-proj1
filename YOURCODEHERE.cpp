@@ -57,7 +57,7 @@ std::string generateCacheLatencyParams(string halfBackedConfig) {
         d1LatencyValue = d1LatencyValue + 2;
     }
 
-    latencySettings << "1" << " ";//(d1LatencyValue - 1) << " "; // Pass value into latency settings.
+    latencySettings << (d1LatencyValue - 1) << " "; // Pass value into latency settings.
 
 	unsigned int il1sets = 32 << extractConfigPararm(halfBackedConfig, 5);
 	unsigned int il1assoc = 1 << extractConfigPararm(halfBackedConfig, 6);
@@ -73,7 +73,7 @@ std::string generateCacheLatencyParams(string halfBackedConfig) {
         i1LatencyValue = i1LatencyValue + 2;
     }
 
-    latencySettings << "1" << " ";//(i1LatencyValue - 1) << " ";
+    latencySettings << (i1LatencyValue - 1) << " ";
 
 	unsigned int l2sets = 256 << extractConfigPararm(halfBackedConfig, 7);
 	unsigned int l2blocksize = 16 << extractConfigPararm(halfBackedConfig, 8);
