@@ -80,7 +80,7 @@ std::string generateCacheLatencyParams(string halfBackedConfig) {
 	unsigned int l2assoc = 1 << extractConfigPararm(halfBackedConfig, 9);
 	
     int l2ExponentValue = (l2assoc * l2sets * l2blocksize) / 1024; // Exponent value to pass for l2. 
-    int l2LatencyValue = log2(l2LatencyValue); 
+    int l2LatencyValue = log2(l2ExponentValue); 
     int l2AssociativeValue = extractConfigPararm(halfBackedConfig, 9);
 	
 
@@ -93,8 +93,6 @@ std::string generateCacheLatencyParams(string halfBackedConfig) {
     } else if (l2AssociativeValue == 4) {
         l2LatencyValue = l2LatencyValue + 4;
     }
-
-	printf("%d %d %d", l2LatencyValue, l2AssociativeValue, l2ExponentValue);
 
     latencySettings << (l2LatencyValue - 5);
 
