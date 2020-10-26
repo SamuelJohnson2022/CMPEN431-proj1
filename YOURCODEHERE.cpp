@@ -20,7 +20,7 @@ using namespace std;
 /*
  * Enter your PSU IDs here to select the appropriate scanning order.
  */
-#define PSU_ID_SUM (912345679+911111111)
+#define PSU_ID_SUM (952909760+907340217)
 
 /*
  * Some global variables to track heuristic progress.
@@ -57,7 +57,7 @@ std::string generateCacheLatencyParams(string halfBackedConfig) {
         d1LatencyValue = d1LatencyValue + 2;
     }
 
-    latencySettings << (d1LatencyValue - 1) <<" "; // Pass value into latency settings.
+    latencySettings << "1" << " ";//(d1LatencyValue - 1) << " "; // Pass value into latency settings.
 
 	unsigned int il1sets = 32 << extractConfigPararm(halfBackedConfig, 5);
 	unsigned int il1assoc = 1 << extractConfigPararm(halfBackedConfig, 6);
@@ -73,7 +73,7 @@ std::string generateCacheLatencyParams(string halfBackedConfig) {
         i1LatencyValue = i1LatencyValue + 2;
     }
 
-    latencySettings << (i1LatencyValue - 1) << " ";
+    latencySettings << "1" << " ";//(i1LatencyValue - 1) << " ";
 
 	unsigned int l2sets = 256 << extractConfigPararm(halfBackedConfig, 7);
 	unsigned int l2blocksize = 16 << extractConfigPararm(halfBackedConfig, 8);
@@ -93,7 +93,7 @@ std::string generateCacheLatencyParams(string halfBackedConfig) {
         l2LatencyValue = l2LatencyValue + 4;
     }
 
-    latencySettings << (l2LatencyValue - 5);
+    latencySettings << "1";//(l2LatencyValue - 5);
 
     return latencySettings.str();
 }
@@ -106,7 +106,7 @@ int validateConfiguration(std::string configuration) {
 	// FIXME - YOUR CODE HERE
 
 	//Check 1
-	int il1BLockSize = pow(2, extractConfigPararm(configuration, 2))*8;
+	int il1BLockSize = pow(2, configuration, 2))*8;
 	int iFetchQueueSize = pow(2, extractConfigPararm(configuration, 0))*8;
 	if(il1BLockSize < iFetchQueueSize){
 		return 0;
