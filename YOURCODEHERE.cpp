@@ -145,7 +145,7 @@ int validateConfiguration(std::string configuration) {
 
 	int l2Size = l2assoc * l2sets * l2blocksize;
 
-	if(l2Size < dl1Size + il1Size){ //Extra check
+	if(l2Size < 2* (dl1Size + il1Size)){ //Extra check
 		return 0;
 	}
 
