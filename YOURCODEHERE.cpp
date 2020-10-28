@@ -31,6 +31,7 @@ using namespace std;
 unsigned int currentlyExploringDim = 0;
 bool currentDimDone = false;
 bool isDSEComplete = false;
+bool firstDSEComplete = false;
 int firstExplore[18] = { 0 }; // true if unexplored, false if explore, initially all dimensions are unexplored
 
 //Functions from projectUtils file
@@ -317,8 +318,17 @@ std::string generateNextConfigurationProposal(std::string currentconfiguration,
 		}
 
 		// Signal that DSE is complete after this configuration.
-		if (currentlyExploringDim == (NUM_DIMS - NUM_DIMS_DEPENDENT))
-			isDSEComplete = true;
+		if (currentlyExploringDim == (NUM_DIMS - NUM_DIMS_DEPENDENT)){
+			if(firstDSEComplete == false){
+				firstDSEComplete = true;
+				for(int i = 0; i < 18; i++){
+					firstExplore[i] = 0;
+				}
+			} else {
+				isDSEComplete = true;
+			}
+		}
+			
 
 		//printf("Dim : %d ", currentlyExploringDim); //Test statement
 	}
