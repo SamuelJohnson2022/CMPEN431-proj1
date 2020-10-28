@@ -90,7 +90,9 @@ std::string generateCacheLatencyParams(string halfBackedConfig) {
 
     latencySettings << ((int)l2LatencyValue - 5);
 
-	//printf("d1 Latency: %d | l1 Latency: %d | l2 Latency: %d", d1LatencyValue, i1LatencyValue, l2LatencyValue);
+	printf("\nd1 Latency: %d | l1 Latency: %d | l2 Latency: %d", d1LatencyValue, i1LatencyValue, l2LatencyValue);
+	printf("\nd1Size: %.2f | i1Size: %.2f | l2Size: %.2f", d1ExponentValue, i1ExponentValue, l2ExponentValue);
+
 
     return latencySettings.str();
 }
