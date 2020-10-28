@@ -31,7 +31,7 @@ using namespace std;
 unsigned int currentlyExploringDim = 0;
 bool currentDimDone = false;
 bool isDSEComplete = false;
-bool firstExplore[18] = { true }; // true if unexplored, false if explore, initially all dimensions are unexplored
+int firstExplore[18] = { 0 }; // true if unexplored, false if explore, initially all dimensions are unexplored
 
 //Functions from projectUtils file
 unsigned int getdl1size(std::string configuration);
@@ -199,9 +199,9 @@ std::string generateNextConfigurationProposal(std::string currentconfiguration,
 
 		// Determining next value
 		int nextValue;
-		if(firstExplore[currentlyExploringDim]){ // If we are exploring for the first time, set to 0
+		if(firstExplore[currentlyExploringDim] == 0){ // If we are exploring for the first time, set to 0
 			nextValue = 0;
-			firstExplore[currentlyExploringDim] = false;
+			firstExplore[currentlyExploringDim] = 1;
 		} else { //Otherwise, iterate through the parameters
 			nextValue = extractConfigPararm(nextconfiguration,
 				currentlyExploringDim) + 1;
