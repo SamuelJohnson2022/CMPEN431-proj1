@@ -31,6 +31,7 @@ using namespace std;
 unsigned int currentlyExploringDim = 0;
 bool currentDimDone = false;
 bool isDSEComplete = false;
+bool firstExplore[18] = { true }; // true if unexplored, false if explore, initially all dimensions are unexplored
 
 /*
  * Given a half-baked configuration containing cache properties, generate
@@ -197,29 +198,96 @@ std::string generateNextConfigurationProposal(std::string currentconfiguration,
 		if (optimizeforEDP == 1)
 			bestConfig = bestEDPconfiguration;
 
-		// Fill in the dimensions already-scanned with the already-selected best
-		// value.
-
-		for (int dim = 0; dim < currentlyExploringDim; ++dim) {
-			ss << extractConfigPararm(bestConfig, dim) << " ";
-		}
-
-		// Handling for currently exploring dimension. This is a very dumb
-		// implementation.
-		int nextValue = extractConfigPararm(nextconfiguration,
+		// Determining next value
+		int nextValue;
+		if(firstExplore[currentlyExploringDim]){ // If we are exploring for the first time, set to 0
+			nextValue = 0;
+			firstExplore[currentlyExploringDim] = false;
+		} else { //Otherwise, iterate through the parameters
+			nextValue = extractConfigPararm(nextconfiguration,
 				currentlyExploringDim) + 1;
+		}
 
 		if (nextValue >= GLOB_dimensioncardinality[currentlyExploringDim]) {
 			nextValue = GLOB_dimensioncardinality[currentlyExploringDim] - 1;
 			currentDimDone = true;
 		}
 
-		ss << nextValue << " ";
+		//How to add to end of string ss << nextValue << " ";
 
-		// Fill in remaining independent params with 0.
-		for (int dim = (currentlyExploringDim + 1);
-				dim < (NUM_DIMS - NUM_DIMS_DEPENDENT); ++dim) {
-			ss << "0 ";
+		// Fill in the dimensions already-scanned with the already-selected best
+		// value.
+		if(currentlyExploringDim < 2){ //We are exploring Core
+			for (int dim = 0; dim < currentlyExploringDim; ++dim) {
+				ss << extractConfigPararm(bestConfig, dim) << " ";
+			}
+
+			// Add in our new value
+			ss << nextValue << " ";
+
+			// Fill in remaining independent params with 0.
+			for (int dim = (currentlyExploringDim + 1); dim < (NUM_DIMS - NUM_DIMS_DEPENDENT); ++dim) {
+				ss << "0 ";
+			}
+		} else if(currentlyExploringDim == 11){ // We are exploring FP
+			// Fill in core params
+			for (int dim = 0; dim < 2; ++dim) {
+				ss << extractConfigPararm(bestConfig, dim) << " ";
+			}
+			
+			// Fill in Cache params
+			for (int dim = 2; dim < 11; ++dim) {
+				ss << "0 ";
+			}
+
+			// Add in our new value
+			ss << nextValue << " ";
+
+			// Fill in remaining independent params with 0.
+			for (int dim = (currentlyExploringDim + 1); dim < (NUM_DIMS - NUM_DIMS_DEPENDENT); ++dim) {
+				ss << "0 ";
+			}
+
+		} else if(currentlyExploringDim >= 2 && currentlyExploringDim < 11){ // We are exploring cache
+			// Fill in core params
+			for (int dim = 0; dim < 2; ++dim) {
+				ss << extractConfigPararm(bestConfig, dim) << " ";
+			}
+			
+			// Fill in Cache params
+			for (int dim = 2; dim < currentlyExploringDim; ++dim) {
+				ss << extractConfigPararm(bestConfig, dim) << " ";
+			}
+
+			// Add in our new value
+			ss << nextValue << " ";
+
+			// Fill in remaining independent params with 0.
+			for (int dim = (currentlyExploringDim + 1); dim < 11; ++dim) {
+				ss << "0 ";
+			}
+
+			//Fill in FP value
+			ss << extractConfigPararm(bestConfig, 11) << " ";
+
+			// Fill in remaining independent params with 0.
+			for (int dim = 12; dim < (NUM_DIMS - NUM_DIMS_DEPENDENT); ++dim) {
+				ss << "0 ";
+			}
+
+		} else if(currentlyExploringDim >= 12 && currentlyExploringDim < 15){ // We are exploring BP
+			//Fill in all other params
+			for (int dim = 0; dim < currentlyExploringDim; ++dim) {
+				ss << extractConfigPararm(bestConfig, dim) << " ";
+			}
+
+			// Add in our new value
+			ss << nextValue << " ";
+
+			// Fill in remaining independent params with 0.
+			for (int dim = (currentlyExploringDim + 1); dim < (NUM_DIMS - NUM_DIMS_DEPENDENT); ++dim) {
+				ss << "0 ";
+			}
 		}
 
 		//
