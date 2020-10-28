@@ -117,7 +117,7 @@ int validateConfiguration(std::string configuration) {
 
 	//Check 2
 	int ul2BLockSize = pow(2, extractConfigPararm(configuration, 8) + 1)*8;	
-	if(ul2BLockSize < 4*il1BLockSize || ul2BLockSize > 128){ //Changed to 4 to test
+	if(ul2BLockSize < 2*il1BLockSize || ul2BLockSize > 128){ //Changed to 4 to test
 		return 0;
 	}
 	
@@ -144,6 +144,10 @@ int validateConfiguration(std::string configuration) {
 	unsigned int l2assoc = 1 << extractConfigPararm(configuration, 9);
 
 	int l2Size = l2assoc * l2sets * l2blocksize;
+
+	if(l2Size < dl1Size + il1Size){ //Extra check
+		return 0;
+	}
 
 	if(l2Size < pow(2,15) || l2Size > pow(2, 20)){
 		return 0;
