@@ -226,7 +226,7 @@ std::string generateNextConfigurationProposal(std::string currentconfiguration,
 
 			// Fill in remaining independent params with 0.
 			for (int dim = (currentlyExploringDim + 1); dim < (NUM_DIMS - NUM_DIMS_DEPENDENT); ++dim) {
-				ss << "0 ";
+				ss << extractConfigPararm(bestConfig, dim) << " ";
 			}
 		} else if(currentlyExploringDim == 11){ // We are exploring FP
 			// Fill in core params
@@ -236,7 +236,7 @@ std::string generateNextConfigurationProposal(std::string currentconfiguration,
 			
 			// Fill in Cache params
 			for (int dim = 2; dim < 11; ++dim) {
-				ss << "0 ";
+				ss << extractConfigPararm(bestConfig, dim) << " ";
 			}
 
 			// Add in our new value
@@ -244,7 +244,7 @@ std::string generateNextConfigurationProposal(std::string currentconfiguration,
 
 			// Fill in remaining independent params with 0.
 			for (int dim = (currentlyExploringDim + 1); dim < (NUM_DIMS - NUM_DIMS_DEPENDENT); ++dim) {
-				ss << "0 ";
+				ss << extractConfigPararm(bestConfig, dim) << " ";
 			}
 
 		} else if(currentlyExploringDim >= 2 && currentlyExploringDim < 11){ // We are exploring cache
@@ -263,7 +263,7 @@ std::string generateNextConfigurationProposal(std::string currentconfiguration,
 
 			// Fill in remaining independent params with 0.
 			for (int dim = (currentlyExploringDim + 1); dim < 11; ++dim) {
-				ss << "0 ";
+				ss << extractConfigPararm(bestConfig, dim) << " ";
 			}
 
 			//Fill in FP value
@@ -271,7 +271,7 @@ std::string generateNextConfigurationProposal(std::string currentconfiguration,
 
 			// Fill in remaining independent params with 0.
 			for (int dim = 12; dim < (NUM_DIMS - NUM_DIMS_DEPENDENT); ++dim) {
-				ss << "0 ";
+				ss << extractConfigPararm(bestConfig, dim) << " ";
 			}
 
 		} else if(currentlyExploringDim >= 12 && currentlyExploringDim < 15){ // We are exploring BP
@@ -285,7 +285,7 @@ std::string generateNextConfigurationProposal(std::string currentconfiguration,
 
 			// Fill in remaining independent params with 0.
 			for (int dim = (currentlyExploringDim + 1); dim < (NUM_DIMS - NUM_DIMS_DEPENDENT); ++dim) {
-				ss << "0 ";
+				ss << extractConfigPararm(bestConfig, dim) << " ";
 			}
 		}
 
