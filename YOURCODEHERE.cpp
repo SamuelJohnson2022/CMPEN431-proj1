@@ -49,7 +49,7 @@ std::string generateCacheLatencyParams(string halfBackedConfig) {
 
 	std::stringstream latencySettings; // Order is D I U.
 
-    double d1ExponentValue = getdl1size(halfBackedConfig) / 1024; // Exponent value to pass to log base 2.
+    int d1ExponentValue = getdl1size(halfBackedConfig) / 1024; // Exponent value to pass to log base 2.
     double d1LatencyValue = log2(d1ExponentValue); // Log value to pass for latency settings. 
     int d1AssociateValue = extractConfigPararm(halfBackedConfig, 4); // Get the index value for the associate D1 cache.
 
@@ -61,7 +61,7 @@ std::string generateCacheLatencyParams(string halfBackedConfig) {
 
     latencySettings << ((int)d1LatencyValue - 1) << " "; // Pass value into latency settings.
 
-    double i1ExponentValue = getil1size(halfBackedConfig) / 1024; // Exponent value to pass for il1. 
+    int i1ExponentValue = getil1size(halfBackedConfig) / 1024; // Exponent value to pass for il1. 
     double i1LatencyValue = log2(i1ExponentValue);
     int i1AssociativeValue = extractConfigPararm(halfBackedConfig, 6);
 
@@ -73,7 +73,7 @@ std::string generateCacheLatencyParams(string halfBackedConfig) {
 
     latencySettings << ((int)i1LatencyValue - 1) << " ";
 	
-    double l2ExponentValue = getl2size(halfBackedConfig) / 1024; // Exponent value to pass for l2. 
+    int l2ExponentValue = getl2size(halfBackedConfig) / 1024; // Exponent value to pass for l2. 
     double l2LatencyValue = log2(l2ExponentValue); 
     int l2AssociativeValue = extractConfigPararm(halfBackedConfig, 9);
 	
@@ -91,7 +91,7 @@ std::string generateCacheLatencyParams(string halfBackedConfig) {
     latencySettings << ((int)l2LatencyValue - 5);
 
 	printf("\nd1 Latency: %d | l1 Latency: %d | l2 Latency: %d", d1LatencyValue, i1LatencyValue, l2LatencyValue);
-	printf("\nd1Size: %.2f | i1Size: %.2f | l2Size: %.2f", d1ExponentValue, i1ExponentValue, l2ExponentValue);
+	printf("\nd1Size: %.2f | i1Size: %.2f | l2Size: %.2f", getdl1size(halfBackedConfig), getil1size(halfBackedConfig), getl2size(halfBackedConfig));
 
 
     return latencySettings.str();
