@@ -176,6 +176,7 @@ std::string generateNextConfigurationProposal(std::string currentconfiguration,
 	// 4. NUM_DIMS_DEPENDENT
 	// 5. GLOB_seen_configurations
 
+	// Core (0 - 1) -> FPU (11) -> Cache (2 - 10) -> BP (12 - 14)
 	std::string nextconfiguration = currentconfiguration;
 	// Continue if proposed configuration is invalid or has been seen/checked before.
 	while (!validateConfiguration(nextconfiguration) ||
@@ -235,7 +236,15 @@ std::string generateNextConfigurationProposal(std::string currentconfiguration,
 
 		// Make sure we start exploring next dimension in next iteration.
 		if (currentDimDone) {
-			currentlyExploringDim++;
+			if(currentlyExploringDim == 1){
+				currentlyExploringDim = 11;
+			} else if (currentlyExploringDim == 11) {
+				currentlyExploringDim = 2;
+			} else if(currentlyExploringDim == 10){
+				currentlyExploringDim = 12;
+			} else {
+				currentlyExploringDim++;
+			}
 			currentDimDone = false;
 		}
 
