@@ -321,7 +321,7 @@ std::string generateNextConfigurationProposal(std::string currentconfiguration,
 		if (currentlyExploringDim == (NUM_DIMS - NUM_DIMS_DEPENDENT))
 			isDSEComplete = true;
 
-		printf("Dim : %d ", currentlyExploringDim);
+		//printf("Dim : %d ", currentlyExploringDim); //Test statement
 	}
 	
 	return nextconfiguration;
