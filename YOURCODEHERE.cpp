@@ -33,6 +33,11 @@ bool currentDimDone = false;
 bool isDSEComplete = false;
 bool firstExplore[18] = { true }; // true if unexplored, false if explore, initially all dimensions are unexplored
 
+//Functions from projectUtils file
+unsigned int getdl1size(std::string configuration);
+unsigned int getil1size(std::string configuration);
+unsigned int getl2size(std::string configuration);
+
 /*
  * Given a half-baked configuration containing cache properties, generate
  * latency parameters in configuration string. You will need information about
@@ -44,11 +49,7 @@ std::string generateCacheLatencyParams(string halfBackedConfig) {
 
 	std::stringstream latencySettings; // Order is D I U.
 
-	unsigned int dl1sets = 32 << extractConfigPararm(halfBackedConfig, 3);
-	unsigned int dl1assoc = 1 << extractConfigPararm(halfBackedConfig, 4);
-	unsigned int dl1blocksize = 8 * (1 << extractConfigPararm(halfBackedConfig, 2));
-
-    int d1ExponentValue = (dl1assoc * dl1sets * dl1blocksize) / 1024; // Exponent value to pass to log base 2.
+    int d1ExponentValue = getdl1size(halfBackedConfig) / 1024; // Exponent value to pass to log base 2.
     int d1LatencyValue = log2(d1ExponentValue); // Log value to pass for latency settings. 
     int d1AssociateValue = extractConfigPararm(halfBackedConfig, 4); // Get the index value for the associate D1 cache.
 
@@ -60,11 +61,7 @@ std::string generateCacheLatencyParams(string halfBackedConfig) {
 
     latencySettings << (d1LatencyValue - 1) << " "; // Pass value into latency settings.
 
-	unsigned int il1sets = 32 << extractConfigPararm(halfBackedConfig, 5);
-	unsigned int il1assoc = 1 << extractConfigPararm(halfBackedConfig, 6);
-	unsigned int il1blocksize = 8 * (1 << extractConfigPararm(halfBackedConfig, 2));
-
-    int i1ExponentValue = (il1assoc * il1sets * il1blocksize) / 1024; // Exponent value to pass for il1. 
+    int i1ExponentValue = getil1size(halfBackedConfig) / 1024; // Exponent value to pass for il1. 
     int i1LatencyValue = log2(i1ExponentValue);
     int i1AssociativeValue = extractConfigPararm(halfBackedConfig, 6);
 
@@ -75,12 +72,8 @@ std::string generateCacheLatencyParams(string halfBackedConfig) {
     }
 
     latencySettings << (i1LatencyValue - 1) << " ";
-
-	unsigned int l2sets = 256 << extractConfigPararm(halfBackedConfig, 7);
-	unsigned int l2blocksize = 16 << extractConfigPararm(halfBackedConfig, 8);
-	unsigned int l2assoc = 1 << extractConfigPararm(halfBackedConfig, 9);
 	
-    int l2ExponentValue = (l2assoc * l2sets * l2blocksize) / 1024; // Exponent value to pass for l2. 
+    int l2ExponentValue = getl2size(halfBackedConfig) / 1024; // Exponent value to pass for l2. 
     int l2LatencyValue = log2(l2ExponentValue); 
     int l2AssociativeValue = extractConfigPararm(halfBackedConfig, 9);
 	
@@ -96,6 +89,8 @@ std::string generateCacheLatencyParams(string halfBackedConfig) {
     }
 
     latencySettings << (l2LatencyValue - 5);
+
+	printf("Latency Settings: %s", latencySettings.str());
 
     return latencySettings.str();
 }
