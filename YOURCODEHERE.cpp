@@ -199,6 +199,7 @@ std::string generateNextConfigurationProposal(std::string currentconfiguration,
 
 		// Fill in the dimensions already-scanned with the already-selected best
 		// value.
+
 		for (int dim = 0; dim < currentlyExploringDim; ++dim) {
 			ss << extractConfigPararm(bestConfig, dim) << " ";
 		}
@@ -252,6 +253,7 @@ std::string generateNextConfigurationProposal(std::string currentconfiguration,
 		if (currentlyExploringDim == (NUM_DIMS - NUM_DIMS_DEPENDENT))
 			isDSEComplete = true;
 	}
+	printf("%d", currentlyExploringDim);
 	return nextconfiguration;
 }
 
