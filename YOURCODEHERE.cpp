@@ -252,8 +252,10 @@ std::string generateNextConfigurationProposal(std::string currentconfiguration,
 		// Signal that DSE is complete after this configuration.
 		if (currentlyExploringDim == (NUM_DIMS - NUM_DIMS_DEPENDENT))
 			isDSEComplete = true;
+
+		printf("Dim : %d ", currentlyExploringDim);
 	}
-	printf("%d", currentlyExploringDim);
+	
 	return nextconfiguration;
 }
 
