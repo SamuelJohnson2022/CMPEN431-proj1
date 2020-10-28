@@ -320,10 +320,12 @@ std::string generateNextConfigurationProposal(std::string currentconfiguration,
 		// Signal that DSE is complete after this configuration.
 		if (currentlyExploringDim == (NUM_DIMS - NUM_DIMS_DEPENDENT)){
 			if(firstDSEComplete == false){
+				// Reset everything to unexplored and start from core again
 				firstDSEComplete = true;
 				for(int i = 0; i < 18; i++){
 					firstExplore[i] = 0;
 				}
+				currentlyExploringDim = 0;
 			} else {
 				isDSEComplete = true;
 			}
