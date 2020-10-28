@@ -49,9 +49,9 @@ std::string generateCacheLatencyParams(string halfBackedConfig) {
 
 	std::stringstream latencySettings; // Order is D I U.
 
-	halfBackedConfig += " 0 0 0";
+	halfBackedConfig += "0 0 0";
 
-    int d1ExponentValue = getdl1size(halfBackedConfig) / 1024; // Exponent value to pass to log base 2.
+    unsigned int d1ExponentValue = getdl1size(halfBackedConfig) / 1024; // Exponent value to pass to log base 2.
     double d1LatencyValue = log2(d1ExponentValue); // Log value to pass for latency settings. 
     int d1AssociateValue = extractConfigPararm(halfBackedConfig, 4); // Get the index value for the associate D1 cache.
 
@@ -63,7 +63,7 @@ std::string generateCacheLatencyParams(string halfBackedConfig) {
 
     latencySettings << ((int)d1LatencyValue - 1) << " "; // Pass value into latency settings.
 
-    int i1ExponentValue = getil1size(halfBackedConfig) / 1024; // Exponent value to pass for il1. 
+    unsigned int i1ExponentValue = getil1size(halfBackedConfig) / 1024; // Exponent value to pass for il1. 
     double i1LatencyValue = log2(i1ExponentValue);
     int i1AssociativeValue = extractConfigPararm(halfBackedConfig, 6);
 
@@ -75,7 +75,7 @@ std::string generateCacheLatencyParams(string halfBackedConfig) {
 
     latencySettings << ((int)i1LatencyValue - 1) << " ";
 	
-    int l2ExponentValue = getl2size(halfBackedConfig) / 1024; // Exponent value to pass for l2. 
+    unsigned int l2ExponentValue = getl2size(halfBackedConfig) / 1024; // Exponent value to pass for l2. 
     double l2LatencyValue = log2(l2ExponentValue); 
     int l2AssociativeValue = extractConfigPararm(halfBackedConfig, 9);
 	
