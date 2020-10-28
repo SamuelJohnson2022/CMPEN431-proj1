@@ -106,7 +106,7 @@ std::string generateCacheLatencyParams(string halfBackedConfig) {
 int validateConfiguration(std::string configuration) {
 
 	// FIXME - YOUR CODE HERE
-	return 1;
+	
 	//Check 1
 	int il1BLockSize = pow(2, extractConfigPararm(configuration, 2))*8;
 	int iFetchQueueSize = pow(2, extractConfigPararm(configuration, 0))*8;
