@@ -117,7 +117,7 @@ int validateConfiguration(std::string configuration) {
 
 	//Check 2
 	int ul2BLockSize = pow(2, extractConfigPararm(configuration, 8) + 1)*8;	
-	if(ul2BLockSize < 2*il1BLockSize || ul2BLockSize > 128){
+	if(ul2BLockSize < 4*il1BLockSize || ul2BLockSize > 128){ //Changed to 4 to test
 		return 0;
 	}
 	
