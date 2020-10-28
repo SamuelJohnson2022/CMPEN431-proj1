@@ -49,6 +49,8 @@ std::string generateCacheLatencyParams(string halfBackedConfig) {
 
 	std::stringstream latencySettings; // Order is D I U.
 
+	halfBackedConfig += " 0 0 0";
+
     int d1ExponentValue = getdl1size(halfBackedConfig) / 1024; // Exponent value to pass to log base 2.
     double d1LatencyValue = log2(d1ExponentValue); // Log value to pass for latency settings. 
     int d1AssociateValue = extractConfigPararm(halfBackedConfig, 4); // Get the index value for the associate D1 cache.
