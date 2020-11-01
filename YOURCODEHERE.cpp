@@ -18,6 +18,12 @@
 using namespace std;
 
 /*
+ * Authors
+ * Samuel Johnson
+ * Jason Novillo
+ */
+
+/*
  * Enter your PSU IDs here to select the appropriate scanning order.
  */
 #define PSU_ID_SUM (952909760+907340217)
